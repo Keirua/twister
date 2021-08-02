@@ -4,7 +4,6 @@ import { library } from "@fortawesome/fontawesome-svg-core"
 import { fas } from "@fortawesome/free-solid-svg-icons"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
 library.add(fas)
 
 type RngAppState = {
@@ -32,7 +31,7 @@ class App extends Component<{}, RngAppState> {
     this.refreshHandler = this.refreshHandler.bind(this)
   }
   refresh() {
-    let n = getRandomInt(1, 100)
+    let n = getRandomInt(10, 100)
     this.setState({
       n: n,
       solution: n*n,
@@ -57,24 +56,24 @@ class App extends Component<{}, RngAppState> {
   render () {
     let current;
     let c = "text-7xl sm:text-7xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
+    let c2 = "text-3xl sm:text-3xl lg:text-3xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
     if(this.state.display_solution) {
       current = <h1 className={c}>{this.state.n}² = {this.state.solution}</h1>;
     } else {
       current = <h1 className={c}>{this.state.n}</h1>
     }
 
-    return <div className="App">
-      <header className="App-header">
+    return <div className="container mx-auto">
+      <header className="flex justify-center">
         {current}
       </header>
-      <div>
-      <button onClick={this.showSolutionHandler}>
-        <FontAwesomeIcon icon={["fas", "clipboard"]} /> Solution
-      </button>
-      &nbsp;
-      <button onClick={this.refreshHandler}>
-        <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
-      </button>
+      <div className="grid grid-cols-2">
+        <button className={c2} onClick={this.showSolutionHandler}>
+          <FontAwesomeIcon icon={["fas", "clipboard"]} /> Solution
+        </button>
+        <button className={c2} onClick={this.refreshHandler}>
+          <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
+        </button>
       </div>
     </div>
   }
