@@ -1,5 +1,11 @@
 import React, { Component, MouseEvent } from 'react';
 import './App.css';
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { fas } from "@fortawesome/free-solid-svg-icons"
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
+library.add(fas)
 
 type RngAppState = {
   n: number,
@@ -50,21 +56,26 @@ class App extends Component<{}, RngAppState> {
 
   render () {
     let current;
+    let c = "text-7xl sm:text-7xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
     if(this.state.display_solution) {
-      current = <p>{this.state.n}² = {this.state.solution}</p>;
+      current = <h1 className={c}>{this.state.n}² = {this.state.solution}</h1>;
     } else {
-      current = <p>{this.state.n}</p>
+      current = <h1 className={c}>{this.state.n}</h1>
     }
+
     return <div className="App">
       <header className="App-header">
         {current}
       </header>
+      <div>
       <button onClick={this.showSolutionHandler}>
-        Solution
+        <FontAwesomeIcon icon={["fas", "clipboard"]} /> Solution
       </button>
+      &nbsp;
       <button onClick={this.refreshHandler}>
-        New number
+        <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
       </button>
+      </div>
     </div>
   }
 }
