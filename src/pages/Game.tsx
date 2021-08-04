@@ -51,20 +51,19 @@ class Game extends Component<{}, RngAppState> {
   }
 
   render () {
-    let current;
+    let title, body;
     let c = "text-7xl sm:text-7xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
     let c2 = "text-3xl sm:text-3xl lg:text-3xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
     if(this.state.display_solution) {
-      current = <h1 className={c}>{this.state.n}² = {this.state.solution}</h1>;
+      title = <h1 className={c}>{this.state.n}² = {this.state.solution}</h1>;
+      body = <div className="grid grid-cols-2">
+        <button className={c2} onClick={this.refreshHandler}>
+          <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
+        </button>
+      </div>
     } else {
-      current = <h1 className={c}>{this.state.n}</h1>
-    }
-
-    return <div className="container mx-auto">
-      <header className="flex justify-center">
-        {current}
-      </header>
-      <div className="grid grid-cols-2">
+      title = <h1 className={c}>{this.state.n}</h1>
+      body = <div className="grid grid-cols-2">
         <button className={c2} onClick={this.showSolutionHandler}>
           <FontAwesomeIcon icon={["fas", "clipboard"]} /> Solution
         </button>
@@ -72,6 +71,13 @@ class Game extends Component<{}, RngAppState> {
           <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
         </button>
       </div>
+    }
+
+    return <div className="container mx-auto">
+      <header className="flex justify-center">
+        {title}
+      </header>
+      {body}
     </div>
   }
 }
