@@ -4,9 +4,7 @@ import './Game.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 type RngAppState = {
-  n: number,
-  solution: number
-  display_solution: boolean
+  n: number
 }
 
 function getRandomInt(min:number, max:number): number {
@@ -18,31 +16,28 @@ function getRandomInt(min:number, max:number): number {
 class Game extends Component<{}, RngAppState> {
   constructor(props: RngAppState) {
     super(props)
-    let n = getRandomInt(1, 100);
+    let n = getRandomInt(1, 16);
     this.state = {
-      n: n,
-      solution: n*n,
-      display_solution: false
+      n: n
     };
-    this.showSolutionHandler = this.showSolutionHandler.bind(this)
+    this.repeatHandler = this.repeatHandler.bind(this)
     this.refreshHandler = this.refreshHandler.bind(this)
+    // this.refreshHandler()
   }
   refresh() {
-    let n = getRandomInt(10, 100)
+    let n = getRandomInt(1, 16)
     this.setState({
-      n: n,
-      solution: n*n,
-      display_solution: false
+      n: n
     });
   }
 
-  showSolutionHandler(e: MouseEvent<HTMLButtonElement>) {
+  repeatHandler(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    this.setState({
-      display_solution: true,
-      n: this.state.n,
-      solution: this.state.n*this.state.n,
-    });
+    // this.setState({
+    //   display_solution: true,
+    //   n: this.state.n,
+    //   solution: this.state.n*this.state.n,
+    // });
   }
 
   refreshHandler(e: MouseEvent<HTMLButtonElement>) {
@@ -54,24 +49,15 @@ class Game extends Component<{}, RngAppState> {
     let title, body;
     let c = "text-7xl sm:text-7xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
     let c2 = "text-3xl sm:text-3xl lg:text-3xl leading-none font-extrabold tracking-tight text-gray-900 mt-10 mb-8 sm:mt-14 sm:mb-10";
-    if(this.state.display_solution) {
-      title = <h1 className={c}>{this.state.n}² = {this.state.solution}</h1>;
-      body = <div className="grid grid-cols-2">
-        <button className={c2} onClick={this.refreshHandler}>
-          <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
-        </button>
-      </div>
-    } else {
-      title = <h1 className={c}>{this.state.n}</h1>
-      body = <div className="grid grid-cols-2">
-        <button className={c2} onClick={this.showSolutionHandler}>
-          <FontAwesomeIcon icon={["fas", "clipboard"]} /> Solution
-        </button>
-        <button className={c2} onClick={this.refreshHandler}>
-          <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
-        </button>
-      </div>
-    }
+    title = <h1 className={c}>{this.state.n}</h1>
+    body = <div className="grid grid-cols-2">
+      <button className={c2} onClick={this.repeatHandler}>
+        <FontAwesomeIcon icon={["fas", "clipboard"]} /> Répéter
+      </button>
+      <button className={c2} onClick={this.refreshHandler}>
+        <FontAwesomeIcon icon={["fas", "sync"]} /> Un autre!
+      </button>
+    </div>
 
     return <div className="container mx-auto">
       <header className="flex justify-center">
